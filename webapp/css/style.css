@@ -1,0 +1,132 @@
+* {
+	margin: 0;
+	padding: 0;
+	cursor: none;
+}
+
+body {
+	background-color: #000000;
+	color: #ffffff;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 20px;
+	height: 100%;
+	overflow: hidden;
+	-webkit-font-smoothing: antialiased;
+}
+
+#calendar {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 45%;
+}
+
+#date {
+	font-size: 30px;
+}
+
+#time {
+	font-size: 85px;
+	font-weight: 300;
+	margin-bottom: 10px;
+}
+
+#month {
+	position: absolute;
+}
+
+.week {
+	display: block;
+	height: 50px;
+}
+
+.weekday {
+	display: inline-block;
+	font-weight: 400;
+	width: 50px;
+	text-align: center;
+}
+
+#month .day {
+	display: inline-block;
+	font-weight: 300;
+	width: 30px;
+	padding-right: 20px;
+	text-align: right;
+}
+
+#month .today {
+	display: inline-block;
+	font-weight: 400;
+	width: 30px;
+	padding-right: 12px;
+	margin-right: 8px;
+	text-align: right;
+	background-color: #f0f0f0;
+	color: #000000;
+}
+
+#weather {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	margin-top: 20px;
+	margin-right: 20px;
+}
+
+#wind {
+	font-size: 30px;
+	text-align: right;
+}
+
+#temperature {
+	display: inline-block;
+	font-size: 85px;
+	font-weight: 300;
+	margin-bottom: 10px;
+}
+
+#weathericon {
+	display: inline-block;
+	font-size: 85px;
+	margin-right: 25px;
+}
+
+#weather-status {
+	margin-left: 10px;
+	display: inline-block;
+}
+
+.forecastday {
+	display: block;
+	height: 50px;
+	text-align: right;
+}
+
+#weather .day {
+	display: inline-block;
+	font-weight: 400;
+	width: 50px;
+}
+
+.forecastdata {
+	display: inline-block;
+	font-weight: 300;
+	width: 75px;
+}
+
+.forecasticon {
+	width: 20px;
+	padding-right: 17px;
+}
+
+#feed {
+	font-size: 50px;
+	font-weight: 200;
+	position: absolute;
+	bottom: 0px;
+	margin-bottom: 20px;
+	text-align: center;
+}
