@@ -8,10 +8,11 @@
   * [News](#news)
 * [License](#license)
 * [Prerequisites](#prerequisites)
-  * [Mandatory prerequisites](#mandatory)
-  * [Optional prerequisites](#optional)
-* [Hardware setup](#hardware)
-* [Mirror π setup](#mirror)
+  * [Mandatory prerequisites](#mandatory-prerequisites)
+  * [Optional prerequisites](#optional-prerequisites)
+* [Hardware setup](#hardware-setup)
+* [Boot setup](#boot-setup)
+* [Mirror π setup](#mirror-%CF%80-setup)
 
 ***
 
