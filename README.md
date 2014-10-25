@@ -8,9 +8,9 @@
   * [News](#news)
 * [License](#license)
 * [Prerequisites](#prerequisites)
-  * [Mandatory prerequisites](#mandatory-prerequisites)
   * [Optional prerequisites](#optional-prerequisites)
 * [Hardware setup](#hardware-setup)
+* [Acquire Mirror π](acquire-mirror-%CF%80)
 * [Boot setup](#boot-setup)
 * [Mirror π setup](#mirror-%CF%80-setup)
 
@@ -38,20 +38,44 @@ jQuery JavaScript Library v2.1.1 Copyright 2005, 2014 jQuery Foundation, Inc. an
 
 Mirror π is built using a Raspberry Model B+, but the following instructions also apply to the Raspberry Pi Model B rev1 and the Raspberry Pi Model B rev2.
 
-A fully updated Raspbian installation with a configured internet access is required.
+The following operating system and configuration is required:
 
-### Mandatory prerequisites
+* [Raspbian](http://www.raspbian.org/) with internet access updated to the latest version.
+    
+    You can achieve this by running an update, and upgrade and a firmware update.
+    
+    ```
+    sudo apt-get update && sudo apt-get dist-upgrade -y && sudo rpi-update
+    ```
+    
+    _Note that after a required firmware update the Raspberry Pi will reboot._
+
+* Boot to desktop enabled.
+    
+    Run `sudo raspi-config` from the command line, and select _Enable Boot to Desktop/Scratch_ → _Desktop Log in as user 'pi' at the graphical desktop_.
+
+* Correct timezone set.
+    
+    Run `sudo raspi-config` from the command line, and select _Internationalisation Options_ → _Change Timezone_, and select your timezone according to your location.
+
+* Enabled SSH server.
+    
+    Run `sudo raspi-config` from the command line, and select _Advanced Options_ → _SSH_, and enable the SSH server.
+
+* At least 128 MB of GPU RAM.
+    
+    Run `sudo raspi-config` from the command line, and select _Advanced Options_ → _Memory Split_, and give at least 128 MB of RAM to the GPU.
 
 The following packages are necessary for Mirror π to fully function:
 
 * `fbi` `TODO` description
 * `python-gtk2` `TODO` description
 * `python-webkit` `TODO` description
-
-
-```bash
-sudo apt-get install python-webkit
-```
+    
+    Install them by entering the following code to the command line:
+    ```
+    sudo apt-get install fbi python-gtk2 python-webkit -y
+    ```
 
 ### Optional prerequisites
 
@@ -69,7 +93,7 @@ sudo apt-get install python-rpi.gpio
 
 `TODO`
 
-```text
+```
                        +-----------+
                        |           |
            3V3 (Power) | ( 1) ( 2) | 5V (Power)
@@ -118,6 +142,14 @@ rev2: GPIO3 (SCL1 I2C) |           |
                 Ground | (39) (40) | GPIO21
                        |           |
                        +-----------+
+```
+
+## Acquire Mirror π
+
+`TODO` detailed description
+
+```
+git clone https://github.com/szantaii/mirror-pi.git
 ```
 
 ## Boot setup
