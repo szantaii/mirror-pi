@@ -8,10 +8,12 @@
   * [News](#news)
 * [License](#license)
 * [Prerequisites](#prerequisites)
-  * [Mandatory prerequisites](#mandatory-prerequisites)
   * [Optional prerequisites](#optional-prerequisites)
 * [Hardware setup](#hardware-setup)
+* [Acquire Mirror π](acquire-mirror-%CF%80)
 * [Boot setup](#boot-setup)
+  * [Kernel options](#kernel-options)
+  * [Raspberry Pi configuration](#raspberry-pi-configuration)
 * [Mirror π setup](#mirror-%CF%80-setup)
 
 ***
@@ -38,20 +40,44 @@ jQuery JavaScript Library v2.1.1 Copyright 2005, 2014 jQuery Foundation, Inc. an
 
 Mirror π is built using a Raspberry Model B+, but the following instructions also apply to the Raspberry Pi Model B rev1 and the Raspberry Pi Model B rev2.
 
-A fully updated Raspbian installation with a configured internet access is required.
+The following operating system and configuration is required:
 
-### Mandatory prerequisites
+* [Raspbian](http://www.raspbian.org/) with internet access updated to the latest version.
+    
+    You can achieve this by running an update, and upgrade and a firmware update.
+    
+    ```
+    sudo apt-get update && sudo apt-get dist-upgrade -y && sudo rpi-update
+    ```
+    
+    _Note that after a required firmware update the Raspberry Pi will reboot._
+
+* Boot to desktop enabled.
+    
+    Run `sudo raspi-config` from the command line, and select _Enable Boot to Desktop/Scratch_ → _Desktop Log in as user 'pi' at the graphical desktop_.
+
+* Correct timezone set.
+    
+    Run `sudo raspi-config` from the command line, and select _Internationalisation Options_ → _Change Timezone_, and select your timezone according to your location.
+
+* Enabled SSH server.
+    
+    Run `sudo raspi-config` from the command line, and select _Advanced Options_ → _SSH_, and enable the SSH server.
+
+* At least 128 MB of GPU RAM.
+    
+    Run `sudo raspi-config` from the command line, and select _Advanced Options_ → _Memory Split_, and give at least 128 MB of RAM to the GPU.
 
 The following packages are necessary for Mirror π to fully function:
 
 * `fbi` `TODO` description
 * `python-gtk2` `TODO` description
 * `python-webkit` `TODO` description
-
-
-```bash
-sudo apt-get install python-webkit
-```
+    
+    Install them by entering the following code to the command line:
+    ```
+    sudo apt-get install fbi python-gtk2 python-webkit -y
+    ```
 
 ### Optional prerequisites
 
@@ -69,7 +95,7 @@ sudo apt-get install python-rpi.gpio
 
 `TODO`
 
-```text
+```
                        +-----------+
                        |           |
            3V3 (Power) | ( 1) ( 2) | 5V (Power)
@@ -120,6 +146,75 @@ rev2: GPIO3 (SCL1 I2C) |           |
                        +-----------+
 ```
 
+## Acquire Mirror π
+
+`TODO` detailed description
+
+```
+git clone https://github.com/szantaii/mirror-pi.git
+```
+
 ## Boot setup
+
+### Kernel options
+
+By applying the following settings boot logs and splash screens will be hidden.
+
+First it is advisable to create a backup of the original kernel options file.
+
+```
+sudo cp /boot/cmdline.txt /boot/cmdline.txt.bak
+```
+
+Remove the following option from the exisitng kernel options:
+
+* `console=tty1` By removing this option the output will not be written to `tty1`.
+
+Add the following options to the existing kernel options:
+
+* `loglevel=3` Kernel messages with severity 3 or smaller will only be logged to the console (KERN\_ERR, KERN\_CRIT, KERN\_ALERT, KERN\_EMERG).
+* `logo.nologo` Disables display of the built-in Raspberry Pi logo.
+* `vt.global_cursor_default=0` 0 will hide cursors, 1 will display them.
+* `quiet` Disable most log messages.
+
+You can add and remove the described options manually or use the following command:
+
+```
+sudo sed -i 's/console=tty1/loglevel=3 logo.nologo vt.global_cursor_default=0 quiet/' /boot/cmdline.txt
+```
+
+### Raspberry Pi configuration
+
+`TODO` detailed description
+
+It is advisable to create a backup of the original Raspberry Pi specific options file.
+
+```
+sudo cp /boot/config.txt /boot/config.txt.bak
+```
+
+* `hdmi_force_hotplug=1` `TODO` description
+
+* `config_hdmi_boost=4` `TODO` description
+
+* `display_rotate=3` `TODO` description
+
+* `disable_splash=1` `TODO` description
+
+### Desktop configuration
+
+```
+sudo cp /etc/xdg/lxsession/LXDE/autostart /etc/xdg/lxsession/LXDE/autostart.bak
+printf "" | sudo tee /etc/xdg/lxsession/LXDE/autostart
+```
+
+```
+mkdir -p /home/pi/.config/autostart
+ln -s /home/pi/mirror-pi/startup/mirror-pi.desktop /home/pi/.config/autostart/mirror-pi.desktop
+```
+
+```
+sudo sed -i 's/^#xserver-command=X$/xserver-command=X -s 0 -dpms -nocursor/' /etc/lightdm/lightdm.conf
+```
 
 ## Mirror π setup
