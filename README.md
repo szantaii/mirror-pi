@@ -193,6 +193,14 @@ It is advisable to create a backup of the original Raspberry Pi specific options
 sudo cp /boot/config.txt /boot/config.txt.bak
 ```
 
+* `hdmi_force_hotplug=1` `TODO` description
+
+* `config_hdmi_boost=4` `TODO` description
+
+* `display_rotate=3` `TODO` description
+
+* `disable_splash=1` `TODO` description
+
 ### Desktop configuration
 
 ```
@@ -206,8 +214,7 @@ ln -s /home/pi/mirror-pi/startup/mirror-pi.desktop /home/pi/.config/autostart/mi
 ```
 
 ```
-sudo sed -i 's/#xserver-command=X/xserver-command=X -s 0 -dpms -nocursor/' /etc/lightdm/lightdm.conf
+sudo sed -i 's/^#xserver-command=X$/xserver-command=X -s 0 -dpms -nocursor/' /etc/lightdm/lightdm.conf
 ```
 
 ## Mirror π setup
-
