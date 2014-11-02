@@ -73,12 +73,9 @@ class AppWrapper:
 if __name__ == "__main__":
 	if len(sys.argv) < 3:
 		print "You must specify a title and a path of your webapp."
-		print "e.g. ./wrapper.py \"Mirror Pi\" /path/to/app.html"
+		print "e.g. ./" + os.path.basename(__file__) + "\"Mirror Pi\" /path/to/app.html"
 		sys.exit(1)
-	
-	#title = "Mirror Pi"
-	#app_url = "file:///home/szantaii/Dropbox/Development/mirror-pi/mirror-pi.html"
-	
+		
 	title = sys.argv[1]
 	app_url = os.path.abspath(sys.argv[2])
 	
