@@ -12,6 +12,8 @@
 * [Hardware setup](#hardware-setup)
 * [Acquire Mirror π](acquire-mirror-%CF%80)
 * [Boot setup](#boot-setup)
+  * [Kernel options](#kernel-options)
+  * [Raspberry Pi configuration](#raspberry-pi-configuration)
 * [Mirror π setup](#mirror-%CF%80-setup)
 
 ***
@@ -154,4 +156,42 @@ git clone https://github.com/szantaii/mirror-pi.git
 
 ## Boot setup
 
+### Kernel options
+
+By applying the following settings boot logs and splash screens will be hidden.
+
+First it is advisable to create a backup of the original kernel options file.
+
+```
+sudo cp /boot/cmdline.txt /boot/cmdline.txt.bak
+```
+
+Remove the following option from the exisitng kernel options:
+
+* `console=tty1` By removing this option the output will not be written to `tty1`.
+
+Add the following options to the existing kernel options:
+
+* `loglevel=3` Kernel messages with severity 3 or smaller will only be logged to the console (KERN\_ERR, KERN\_CRIT, KERN\_ALERT, KERN\_EMERG).
+* `logo.nologo` Disables display of the built-in Raspberry Pi logo.
+* `vt.global_cursor_default=0` 0 will hide cursors, 1 will display them.
+* `quiet` Disable most log messages.
+
+You can add and remove the described options manually or use the following command:
+
+```
+sudo sed -i 's/console=tty1/loglevel=3 logo.nologo vt.global_cursor_default=0 quiet/' /boot/cmdline.txt
+```
+
+### Raspberry Pi configuration
+
+`TODO` detailed description
+
+It is advisable to create a backup of the original Raspberry Pi specific options file.
+
+```
+sudo cp /boot/config.txt /boot/config.txt.bak
+```
+
 ## Mirror π setup
+
