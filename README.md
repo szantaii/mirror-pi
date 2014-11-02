@@ -193,5 +193,21 @@ It is advisable to create a backup of the original Raspberry Pi specific options
 sudo cp /boot/config.txt /boot/config.txt.bak
 ```
 
+### Desktop configuration
+
+```
+sudo cp /etc/xdg/lxsession/LXDE/autostart /etc/xdg/lxsession/LXDE/autostart.bak
+printf "" | sudo tee /etc/xdg/lxsession/LXDE/autostart
+```
+
+```
+mkdir -p /home/pi/.config/autostart
+ln -s /home/pi/mirror-pi/startup/mirror-pi.desktop /home/pi/.config/autostart/mirror-pi.desktop
+```
+
+```
+sudo sed -i 's/#xserver-command=X/xserver-command=X -s 0 -dpms -nocursor/' /etc/lightdm/lightdm.conf
+```
+
 ## Mirror π setup
 
