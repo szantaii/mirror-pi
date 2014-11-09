@@ -73,7 +73,9 @@ The following operating system and configuration is required:
 The following packages are necessary for Mirror π to fully function:
 
 * `fbi` `TODO` description
+
 * `python-gtk2` `TODO` description
+
 * `python-webkit` `TODO` description
     
     Install them by entering the following code to the command line:
@@ -175,8 +177,11 @@ Remove the following option from the exisitng kernel options:
 Add the following options to the existing kernel options:
 
 * `loglevel=3` Kernel messages with severity 3 or smaller will only be logged to the console (KERN\_ERR, KERN\_CRIT, KERN\_ALERT, KERN\_EMERG).
+
 * `logo.nologo` Disables display of the built-in Raspberry Pi logo.
+
 * `vt.global_cursor_default=0` 0 will hide cursors, 1 will display them.
+
 * `quiet` Disable most log messages.
 
 You can add and remove the described options manually or use the following command:
@@ -215,8 +220,7 @@ sudo update-rc.d bootsplash.sh start
 ### Desktop configuration
 
 ```
-sudo cp /etc/xdg/lxsession/LXDE/autostart /etc/xdg/lxsession/LXDE/autostart.bak
-printf "" | sudo tee /etc/xdg/lxsession/LXDE/autostart
+sudo sed -i.bak 's/^/#/' /etc/xdg/lxsession/LXDE/autostart
 ```
 
 ```
@@ -225,7 +229,7 @@ ln -s /home/pi/mirror-pi/startup/mirror-pi.desktop /home/pi/.config/autostart/mi
 ```
 
 ```
-sudo sed -i 's/^#xserver-command=X$/xserver-command=X -s 0 -dpms -nocursor/' /etc/lightdm/lightdm.conf
+sudo sed -i.bak 's/^#xserver-command=X$/xserver-command=X -s 0 -dpms -nocursor/' /etc/lightdm/lightdm.conf
 ```
 
 ## Mirror π setup
