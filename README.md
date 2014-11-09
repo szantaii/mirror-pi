@@ -9,7 +9,7 @@
 * [License](#license)
 * [Prerequisites](#prerequisites)
   * [Optional prerequisites](#optional-prerequisites)
-* [Hardware setup](#hardware-setup)y
+* [Hardware setup](#hardware-setup)
 * [Acquire Mirror π](acquire-mirror-%CF%80)
 * [Boot setup](#boot-setup)
   * [Kernel options](#kernel-options)
