@@ -233,3 +233,5 @@ sudo sed -i.bak 's/^#xserver-command=X$/xserver-command=X -s 0 -dpms -nocursor/'
 ```
 
 ## Mirror π setup
+
+`TODO`
