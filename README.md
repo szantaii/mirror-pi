@@ -9,11 +9,13 @@
 * [License](#license)
 * [Prerequisites](#prerequisites)
   * [Optional prerequisites](#optional-prerequisites)
-* [Hardware setup](#hardware-setup)
+* [Hardware setup](#hardware-setup)y
 * [Acquire Mirror π](acquire-mirror-%CF%80)
 * [Boot setup](#boot-setup)
   * [Kernel options](#kernel-options)
   * [Raspberry Pi configuration](#raspberry-pi-configuration)
+  * [Splash screen](#splash-screen)
+  * [Desktop configuration](#desktop-configuration)
 * [Mirror π setup](#mirror-%CF%80-setup)
 
 ***
@@ -200,6 +202,15 @@ sudo cp /boot/config.txt /boot/config.txt.bak
 * `display_rotate=3` `TODO` description
 
 * `disable_splash=1` `TODO` description
+
+### Splash screen
+
+```
+chmod a+x /home/pi/mirror-pi/startup/bootsplash.sh
+sudo ln -s /home/pi/mirror-pi/startup/bootsplash.sh /etc/init.d/bootsplash.sh
+sudo insserv /etc/init.d/bootsplash.sh
+sudo update-rc.d bootsplash.sh start
+```
 
 ### Desktop configuration
 
