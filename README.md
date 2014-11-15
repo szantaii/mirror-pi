@@ -72,6 +72,8 @@ The following operating system and configuration is required:
 
 The following packages are necessary for Mirror π to fully function:
 
+* `git` `TODO` description
+
 * `fbi` `TODO` description
 
 * `python-gtk2` `TODO` description
@@ -80,7 +82,7 @@ The following packages are necessary for Mirror π to fully function:
     
     Install them by entering the following code to the command line:
     ```
-    sudo apt-get install fbi python-gtk2 python-webkit -y
+    sudo apt-get install git fbi python-gtk2 python-webkit -y
     ```
 
 ### Optional prerequisites
@@ -148,6 +150,19 @@ rev2: GPIO3 (SCL1 I2C) |           |
                 Ground | (39) (40) | GPIO21
                        |           |
                        +-----------+
+```
+
+```
++------------+
+| PIR SENSOR |
+| (HC-SR501) |
+|            |
+|        +5V | ---------------------------------- Pin 2: 5V (Power)
+|            |
+|        Out | ------------------- Pin 26: GPIO7
+|            |
+|     Ground | ---- Pin 6: Ground
++------------+
 ```
 
 ## Acquire Mirror π
