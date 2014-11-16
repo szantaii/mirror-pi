@@ -34,7 +34,7 @@ News about the Mirror π project will be posted on [sidenote.hu](http://sidenote
 
 ## License
 
-This project, unless noted otherwise, is licensed under the MIT License. For the full license, see [`LICENSE`](LICENSE). Copyright (c) 2014 Istvan Szantai <szantaii at sidenote dot hu>
+This project, unless noted otherwise, is licensed under the MIT License. For the full license, see [`LICENSE`](LICENSE). Copyright © 2014 Istvan Szantai \<szantaii at sidenote dot hu\>
 
 jQuery JavaScript Library v2.1.1 Copyright 2005, 2014 jQuery Foundation, Inc. and other contributors, released under the [MIT license](http://jquery.org/license)
 
