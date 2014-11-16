@@ -15,7 +15,7 @@ webapp_path="${base_path}/webapp/mirror-pi.html"
 webapp_title="Mirror Pi"
 
 # PIR sensor specific variables
-sensor_path="${base_path}/sensor/pir_monitor.py"
+sensor_path="${base_path}/sensor/pir-sensor.py"
 
 
 reconnect_on_connection_lost()
@@ -72,6 +72,6 @@ wait_for_ip "${network_interface}" "${connection_sleep_timeout}"
 
 get_network_time
 
-#start_sensor "${sensor_path}" &
+start_sensor "${sensor_path}" &
 
 start_webapp "${browser_path}" "${webapp_title}" "${webapp_path}" &

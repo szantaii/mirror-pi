@@ -14,6 +14,8 @@
 * [Boot setup](#boot-setup)
   * [Kernel options](#kernel-options)
   * [Raspberry Pi configuration](#raspberry-pi-configuration)
+  * [Splash screen](#splash-screen)
+  * [Desktop configuration](#desktop-configuration)
 * [Mirror π setup](#mirror-%CF%80-setup)
 
 ***
@@ -32,9 +34,11 @@ News about the Mirror π project will be posted on [sidenote.hu](http://sidenote
 
 ## License
 
-This project, unless noted otherwise, is licensed under the GNU General Public License Version 3+. For the full license, see [`LICENSE`](LICENSE).
+This project, unless noted otherwise, is licensed under the MIT License. For the full license, see [`LICENSE`](LICENSE). Copyright © 2014 Istvan Szantai \<szantaii at sidenote dot hu\>
 
 jQuery JavaScript Library v2.1.1 Copyright 2005, 2014 jQuery Foundation, Inc. and other contributors, released under the [MIT license](http://jquery.org/license)
+
+[Weather icons](webapp/img) used in this project are adapted work of [Dmitry Baranovskiy](http://thenounproject.com/DmitryBaranovskiy/) from [The Noun Project](http://thenounproject.com/) licensed under the Creative Commons [Attribution 3.0 Unported (CC BY 3.0)](http://creativecommons.org/licenses/by/3.0/) license.
 
 ## Prerequisites
 
@@ -70,13 +74,17 @@ The following operating system and configuration is required:
 
 The following packages are necessary for Mirror π to fully function:
 
+* `git` `TODO` description
+
 * `fbi` `TODO` description
+
 * `python-gtk2` `TODO` description
+
 * `python-webkit` `TODO` description
     
     Install them by entering the following code to the command line:
     ```
-    sudo apt-get install fbi python-gtk2 python-webkit -y
+    sudo apt-get install git fbi python-gtk2 python-webkit -y
     ```
 
 ### Optional prerequisites
@@ -146,6 +154,19 @@ rev2: GPIO3 (SCL1 I2C) |           |
                        +-----------+
 ```
 
+```
++------------+
+| PIR SENSOR |
+| (HC-SR501) |
+|            |
+|        +5V | ---------------------------------- Pin 2: 5V (Power)
+|            |
+|        Out | ------------------- Pin 26: GPIO7
+|            |
+|     Ground | ---- Pin 6: Ground
++------------+
+```
+
 ## Acquire Mirror π
 
 `TODO` detailed description
@@ -173,8 +194,11 @@ Remove the following option from the exisitng kernel options:
 Add the following options to the existing kernel options:
 
 * `loglevel=3` Kernel messages with severity 3 or smaller will only be logged to the console (KERN\_ERR, KERN\_CRIT, KERN\_ALERT, KERN\_EMERG).
+
 * `logo.nologo` Disables display of the built-in Raspberry Pi logo.
+
 * `vt.global_cursor_default=0` 0 will hide cursors, 1 will display them.
+
 * `quiet` Disable most log messages.
 
 You can add and remove the described options manually or use the following command:
@@ -201,11 +225,19 @@ sudo cp /boot/config.txt /boot/config.txt.bak
 
 * `disable_splash=1` `TODO` description
 
+### Splash screen
+
+```
+chmod a+x /home/pi/mirror-pi/startup/bootsplash.sh
+sudo ln -s /home/pi/mirror-pi/startup/bootsplash.sh /etc/init.d/bootsplash.sh
+sudo insserv /etc/init.d/bootsplash.sh
+sudo update-rc.d bootsplash.sh start
+```
+
 ### Desktop configuration
 
 ```
-sudo cp /etc/xdg/lxsession/LXDE/autostart /etc/xdg/lxsession/LXDE/autostart.bak
-printf "" | sudo tee /etc/xdg/lxsession/LXDE/autostart
+sudo sed -i.bak 's/^/#/' /etc/xdg/lxsession/LXDE/autostart
 ```
 
 ```
@@ -214,7 +246,9 @@ ln -s /home/pi/mirror-pi/startup/mirror-pi.desktop /home/pi/.config/autostart/mi
 ```
 
 ```
-sudo sed -i 's/^#xserver-command=X$/xserver-command=X -s 0 -dpms -nocursor/' /etc/lightdm/lightdm.conf
+sudo sed -i.bak 's/^#xserver-command=X$/xserver-command=X -s 0 -dpms -nocursor/' /etc/lightdm/lightdm.conf
 ```
 
 ## Mirror π setup
+
+`TODO`
