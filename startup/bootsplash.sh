@@ -9,11 +9,6 @@
 # Description:       
 ### END INIT INFO
 
-# Mirror π
-# 
-# Copyright (c) 2014 Istvan Szantai <szantaii at sidenote dot hu>
-# Released under the MIT License (LICENSE).
-
 splash_image_path="/home/pi/mirror-pi/startup/bootsplash.png"
 
 do_start()

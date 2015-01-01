@@ -1,10 +1,5 @@
 #!/usr/bin/env python
 
-# Mirror π
-# 
-# Copyright (c) 2014 Istvan Szantai <szantaii at sidenote dot hu>
-# Released under the MIT License (LICENSE).
-
 import Queue
 from threading import Thread
 import RPi.GPIO as gpio
