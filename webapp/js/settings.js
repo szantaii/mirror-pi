@@ -1,3 +1,10 @@
+/*
+	Mirror π
+	
+	Copyright (c) 2014 Istvan Szantai <szantaii at sidenote dot hu>
+	Released under the MIT License (LICENSE).
+*/
+
 var settings = {
 	common: {
 		daysOfWeek: ["sun", "mon", "tue", "wed", "thu", "fri", "sat", "sun"]
