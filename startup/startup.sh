@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Mirror π
+# 
+# Copyright (c) 2014 Istvan Szantai <szantaii at sidenote dot hu>
+# Released under the MIT License (LICENSE).
+
 # Common variables
 base_path="$(dirname $0)"
 base_path="$(dirname ${base_path})"

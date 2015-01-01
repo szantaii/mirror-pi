@@ -9,7 +9,7 @@
 * [License](#license)
 * [Prerequisites](#prerequisites)
   * [Optional prerequisites](#optional-prerequisites)
-* [Hardware setup](#hardware-setup)
+    * [Hardware setup](#hardware-setup)
 * [Acquire Mirror π](acquire-mirror-%CF%80)
 * [Boot setup](#boot-setup)
   * [Kernel options](#kernel-options)
@@ -34,9 +34,9 @@ News about the Mirror π project will be posted on [sidenote.hu](http://sidenote
 
 ## License
 
-This project, unless noted otherwise, is licensed under the MIT License. For the full license, see [`LICENSE`](LICENSE). Copyright © 2014 Istvan Szantai \<szantaii at sidenote dot hu\>
+This project, unless noted otherwise, is licensed under the MIT License. For the full license, see [`LICENSE`](LICENSE). Copyright © 2014 Istvan Szantai \<szantaii at sidenote dot hu\>.
 
-jQuery JavaScript Library v2.1.1 Copyright 2005, 2014 jQuery Foundation, Inc. and other contributors, released under the [MIT license](http://jquery.org/license)
+jQuery JavaScript Library v2.1.1 Copyright 2005, 2014 jQuery Foundation, Inc. and other contributors, released under the [MIT license](http://jquery.org/license).
 
 [Weather icons](webapp/img) used in this project are adapted work of [Dmitry Baranovskiy](http://thenounproject.com/DmitryBaranovskiy/) from [The Noun Project](http://thenounproject.com/) licensed under the Creative Commons [Attribution 3.0 Unported (CC BY 3.0)](http://creativecommons.org/licenses/by/3.0/) license.
 
@@ -46,7 +46,7 @@ Mirror π is built using a Raspberry Model B+, but the following instructions al
 
 The following operating system and configuration is required:
 
-* [Raspbian](http://www.raspbian.org/) with internet access updated to the latest version.
+* [Raspbian](http://www.raspbian.org/) updated to the latest version with configured active internet access.
     
     You can achieve this by running an update, and upgrade and a firmware update.
     
@@ -54,7 +54,7 @@ The following operating system and configuration is required:
     sudo apt-get update && sudo apt-get dist-upgrade -y && sudo rpi-update
     ```
     
-    _Note that after a required firmware update the Raspberry Pi will reboot._
+    _Note that after a firmware update the Raspberry Pi needs to rebooted so the changes take in effect._
 
 * Boot to desktop enabled.
     
@@ -74,34 +74,39 @@ The following operating system and configuration is required:
 
 The following packages are necessary for Mirror π to fully function:
 
-* `git` `TODO` description
+* `git` “Git is a fast, scalable, distributed revision control system with an unusually rich command set that provides both high-level operations and full access to internals.” Mirror π's source code in maintained using Git on GitHub, therefore Git is needed to acquire Mirror π.
 
-* `fbi` `TODO` description
+* `fbi` “fbi displays the specified file(s) on the linux console using the framebuffer device.” fbi is needed so Mirror π can display a splash screen on boot.
 
-* `python-gtk2` `TODO` description
+* `python-gtk2` This package contains modules that allow to use GTK+ in Python programs.
 
-* `python-webkit` `TODO` description
-    
-    Install them by entering the following code to the command line:
-    ```
-    sudo apt-get install git fbi python-gtk2 python-webkit -y
-    ```
+* `python-webkit` This package contains modules that allow using the WebKit browser engine in a Python/GTK+ application.
+
+You can install the listed packages by entering the following to the command-line:
+
+```
+sudo apt-get install git fbi python-gtk2 python-webkit -y
+```
 
 ### Optional prerequisites
 
-TODO: PIR sensor
+Mirror π supports the use of an [HC-SR501](https://www.google.com/search?q=%22HC-SR501%22) passive infrared sensor ([PIR sensor](http://en.wikipedia.org/wiki/Passive_infrared_sensor)), which is used for motion detection. If Mirror π does not detect motion for a certain time it turns off the Raspberry Pi's HDMI output, this way sends the display into power sleep mode to save energy when no one is around. Also if the display is turned off to save power and motion is detected the Raspberry Pi's HDMI output is turned back on so all information is displayed again.
 
-The sensor is an optional prerequisite, therefore parts of this document in connection with the usage of the sensor are marked with `*`.
+_Note that the passive infrared sensor is an optional prerequisite, therefore parts of this document in connection with the usage of the sensor are marked with _`*`_._
 
-* `python-rpi.gpio` `TODO` description 
+The following package is necessary to make the PIR sensor work with the Raspberry Pi.
 
-```bash
-sudo apt-get install python-rpi.gpio
+* `python-rpi.gpio` Python GPIO module for Raspberry Pi.
+
+To install the `python-rpi.gpio` package enter the following command into the command-line:
+
+```
+sudo apt-get install python-rpi.gpio -y
 ```
 
-## Hardware setup
+#### Hardware setup
 
-`TODO`
+You can see the GPIO layout for Raspberry Pi Model B rev1, Raspberry Pi Model B rev2 and Raspberry Pi Model B+ in a single ASCII figure below.
 
 ```
                        +-----------+
@@ -154,6 +159,8 @@ rev2: GPIO3 (SCL1 I2C) |           |
                        +-----------+
 ```
 
+The HC-SR501 sensor is connected to the Raspberry Pi GPIO pins as shown below.
+
 ```
 +------------+
 | PIR SENSOR |
@@ -169,23 +176,21 @@ rev2: GPIO3 (SCL1 I2C) |           |
 
 ## Acquire Mirror π
 
-`TODO` detailed description
+To get Mirror π simply run the following command in the command-line:
 
 ```
 git clone https://github.com/szantaii/mirror-pi.git
 ```
 
+_Note that the following instructions use the `pi` user's home directory (`/home/pi`) as the base directory for Mirror π. If you choose to clone Mirror π to a different location make sure you enter the proper paths when using the following commands in the next sections. Also the [startup/mirror-pi.desktop](startup/mirror-pi.desktop) file contains Mirror π's absolute path, so if you cloned Mirror π into another location than the `pi` user's home directory you must edit this file also so it would contain the proper path._
+
 ## Boot setup
+
+In this section we will go through the boot process setup of Mirror π.
 
 ### Kernel options
 
 By applying the following settings boot logs and splash screens will be hidden.
-
-First it is advisable to create a backup of the original kernel options file.
-
-```
-sudo cp /boot/cmdline.txt /boot/cmdline.txt.bak
-```
 
 Remove the following option from the exisitng kernel options:
 
@@ -193,18 +198,18 @@ Remove the following option from the exisitng kernel options:
 
 Add the following options to the existing kernel options:
 
-* `loglevel=3` Kernel messages with severity 3 or smaller will only be logged to the console (KERN\_ERR, KERN\_CRIT, KERN\_ALERT, KERN\_EMERG).
+* `loglevel=3` Only kernel messages with severity 3 or smaller will be logged to the console (KERN\_ERR, KERN\_CRIT, KERN\_ALERT, KERN\_EMERG).
 
 * `logo.nologo` Disables display of the built-in Raspberry Pi logo.
 
-* `vt.global_cursor_default=0` 0 will hide cursors, 1 will display them.
+* `vt.global_cursor_default=0` 0 will hide cursor, 1 will display it.
 
-* `quiet` Disable most log messages.
+* `quiet` Disables most log messages.
 
-You can add and remove the described options manually or use the following command:
+You can add and remove the described options manually (advisable to create a backup of the original kernel options file) or use the following command:
 
 ```
-sudo sed -i 's/console=tty1/loglevel=3 logo.nologo vt.global_cursor_default=0 quiet/' /boot/cmdline.txt
+sudo sed -i.bak 's/console=tty1/loglevel=3 logo.nologo vt.global_cursor_default=0 quiet/' /boot/cmdline.txt
 ```
 
 ### Raspberry Pi configuration
@@ -217,24 +222,45 @@ It is advisable to create a backup of the original Raspberry Pi specific options
 sudo cp /boot/config.txt /boot/config.txt.bak
 ```
 
-* `hdmi_force_hotplug=1` `TODO` description
+* `hdmi_force_hotplug=1` Use HDMI mode even if no HDMI monitor is detected.
 
-* `config_hdmi_boost=4` `TODO` description
+* `config_hdmi_boost=4` Configure the signal strength of the HDMI interface. (Default is 0. Try 4 if you have interference issues with hdmi. 7 is the maximum.)
 
-* `display_rotate=3` `TODO` description
+* `display_rotate=3` Rotates the display 270 degrees clockwise on the screen.
 
-* `disable_splash=1` `TODO` description
+* `disable_splash=1` If set to 1, disables the rainbow splash screen on boot.
 
 ### Splash screen
 
-```
-chmod a+x /home/pi/mirror-pi/startup/bootsplash.sh
-sudo ln -s /home/pi/mirror-pi/startup/bootsplash.sh /etc/init.d/bootsplash.sh
-sudo insserv /etc/init.d/bootsplash.sh
-sudo update-rc.d bootsplash.sh start
-```
+Enable the Mirror π by adding the `bootsplash` service to the system in four steps:
+
+1. Add execution rights to the `bootsplash` service script.
+    
+    ```
+    chmod a+x /home/pi/mirror-pi/startup/bootsplash.sh
+    ```
+
+2. Add a symbolic link of the service script to `/etc/init.d`.
+    
+    ```
+    sudo ln -s /home/pi/mirror-pi/startup/bootsplash.sh /etc/init.d/bootsplash.sh
+    ```
+
+3. Enable the installed system init script by reading the comment header of the script.
+    
+    ```
+    sudo insserv /etc/init.d/bootsplash.sh
+    ```
+
+4. Make the `bootsplash` service start on system startup.
+    
+    ```
+    sudo update-rc.d bootsplash.sh start
+    ```
 
 ### Desktop configuration
+
+`TODO` detailed description
 
 ```
 sudo sed -i.bak 's/^/#/' /etc/xdg/lxsession/LXDE/autostart
